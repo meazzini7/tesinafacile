@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Come si fa una tesina di terza media — Guida completa | TesinaFacile",
+  title: "Come si fa una tesina di terza media — Guida completa",
   description:
     "Guida passo passo alla tesina di terza media: come scegliere l'argomento, collegare le materie e strutturare l'esposizione per l'esame.",
 };

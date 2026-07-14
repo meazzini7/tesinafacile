@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Termini di servizio — TesinaFacile",
+  title: "Termini di servizio",
   description: "Condizioni d'uso di TesinaFacile.",
 };
 
