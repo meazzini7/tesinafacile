@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Come strutturare la tesina di maturità — Guida completa | TesinaFacile",
+  title: "Come strutturare la tesina di maturità — Guida completa",
   description:
     "Come scegliere il percorso della tesina di maturità, collegare le materie del tuo indirizzo e presentarla al meglio all'orale.",
 };

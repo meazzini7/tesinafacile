@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Privacy Policy — TesinaFacile",
+  title: "Privacy Policy",
   description: "Informativa sulla privacy di TesinaFacile: quali dati raccogliamo, come li usiamo e i tuoi diritti.",
 };
 

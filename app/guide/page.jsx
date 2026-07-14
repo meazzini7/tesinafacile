@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Guide: come scrivere tesi e tesine — TesinaFacile",
+  title: "Guide: come scrivere tesi e tesine",
   description:
     "Guide pratiche su come scrivere una tesina di terza media, la tesina di maturità o la tesi di laurea, passo dopo passo.",
 };
