@@ -9,9 +9,14 @@ import { verificaUtente, getAdminDb } from "@/lib/firebaseAdmin";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function POST(request) {
-  const utente = await verificaUtente(request);
-  if (!utente) {
-    return Response.json({ errore: "Devi effettuare l'accesso." }, { status: 401 });
+  let utente;
+  try {
+    utente = await verificaUtente(request);
+  } catch (err) {
+    return Response.json(
+      { errore: `Devi effettuare l'accesso (${err.motivo}: ${err.message}).` },
+      { status: 401 }
+    );
   }
 
   const {
