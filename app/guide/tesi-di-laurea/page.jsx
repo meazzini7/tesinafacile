@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Come strutturare la tesi di laurea — Guida completa | TesinaFacile",
+  title: "Come strutturare la tesi di laurea — Guida completa",
   description:
     "Indice, capitoli, apparato critico e bibliografia: come strutturare una tesi di laurea in stile accademico, passo dopo passo.",
 };
