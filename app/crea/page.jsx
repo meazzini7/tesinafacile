@@ -5,26 +5,81 @@ import Link from "next/link";
 import { useAuth } from "@/lib/AuthContext";
 
 const GRADI = [
-  { valore: "medie", etichetta: "Scuole medie" },
-  { valore: "superiori", etichetta: "Superiori" },
-  { valore: "universita", etichetta: "Università" },
-  { valore: "master", etichetta: "Master" },
+  { valore: "medie", etichetta: "Scuole medie", emoji: "🎒" },
+  { valore: "superiori", etichetta: "Superiori", emoji: "📚" },
+  { valore: "universita", etichetta: "Università", emoji: "🎓" },
+  { valore: "master", etichetta: "Master", emoji: "👨‍🎓" },
 ];
 
-const PASSI = ["grado", "indirizzo", "materie", "argomento", "pagine", "riepilogo"];
+const INDIRIZZI = {
+  superiori: [
+    "Liceo Scientifico",
+    "Liceo Classico",
+    "Liceo Linguistico",
+    "Liceo delle Scienze Umane",
+    "Liceo Artistico",
+    "Istituto Tecnico Economico",
+    "Istituto Tecnico Tecnologico",
+    "Istituto Professionale",
+  ],
+  universita: [
+    "Ingegneria",
+    "Economia",
+    "Giurisprudenza",
+    "Medicina",
+    "Lettere e Filosofia",
+    "Scienze",
+    "Psicologia",
+    "Architettura",
+  ],
+  master: [
+    "Ingegneria",
+    "Economia",
+    "Giurisprudenza",
+    "Medicina",
+    "Lettere e Filosofia",
+    "Scienze",
+    "Psicologia",
+    "Architettura",
+  ],
+};
+
+const MATERIE_COMUNI = [
+  "Italiano", "Storia", "Matematica", "Inglese", "Scienze", "Arte",
+  "Ed. Fisica", "Filosofia", "Latino", "Fisica", "Chimica", "Geografia",
+  "Diritto", "Economia", "Informatica",
+];
+
+const ARGOMENTI_SUGGERITI = [
+  { etichetta: "Il calcio", emoji: "⚽" },
+  { etichetta: "L'intelligenza artificiale", emoji: "🤖" },
+  { etichetta: "Lo spazio", emoji: "🚀" },
+  { etichetta: "I social media", emoji: "📱" },
+  { etichetta: "Il cambiamento climatico", emoji: "🌍" },
+  { etichetta: "La musica", emoji: "🎵" },
+];
+
+const OPZIONI_PAGINE = [5, 10, 15, 20, 30];
 
 export default function CreaTesinaPage() {
   const { utente, caricamento } = useAuth();
-  const [passo, setPasso] = useState(0);
+
   const [gradoStudio, setGradoStudio] = useState("");
   const [indirizzoStudio, setIndirizzoStudio] = useState("");
-  const [materie, setMaterie] = useState("");
+  const [indirizzoPersonalizzato, setIndirizzoPersonalizzato] = useState(false);
+  const [materie, setMaterie] = useState([]);
   const [argomento, setArgomento] = useState("");
+  const [argomentoPersonalizzato, setArgomentoPersonalizzato] = useState(false);
   const [numeroPagine, setNumeroPagine] = useState(10);
 
+  const [passo, setPasso] = useState(0);
   const [generazione, setGenerazione] = useState(false);
   const [errore, setErrore] = useState("");
   const [tesina, setTesina] = useState(null);
+
+  const PASSI = gradoStudio === "medie"
+    ? ["grado", "materie", "argomento", "pagine", "riepilogo"]
+    : ["grado", "indirizzo", "materie", "argomento", "pagine", "riepilogo"];
 
   if (caricamento) return null;
 
@@ -33,7 +88,7 @@ export default function CreaTesinaPage() {
       <main>
         <section className="pagina-form">
           <div className="container container-stretto">
-            <h1>Devi accedere</h1>
+            <h1>Devi accedere 🔒</h1>
             <p className="sottotitolo">
               Crea un account gratuito per generare la tua tesina con l'AI.
             </p>
@@ -44,9 +99,33 @@ export default function CreaTesinaPage() {
     );
   }
 
+  function selezionaGrado(valore) {
+    setGradoStudio(valore);
+    if (valore === "medie") setIndirizzoStudio("Scuola secondaria di primo grado");
+    else setIndirizzoStudio("");
+    setIndirizzoPersonalizzato(false);
+  }
+
+  function selezionaIndirizzo(valore) {
+    setIndirizzoStudio(valore);
+    setIndirizzoPersonalizzato(false);
+  }
+
+  function alternaMateria(materia) {
+    setMaterie((attuali) =>
+      attuali.includes(materia) ? attuali.filter((m) => m !== materia) : [...attuali, materia]
+    );
+  }
+
+  function selezionaArgomento(valore) {
+    setArgomento(valore);
+    setArgomentoPersonalizzato(false);
+  }
+
   const puoAndareAvanti = () => {
-    if (PASSI[passo] === "grado") return !!gradoStudio;
-    if (PASSI[passo] === "indirizzo") return indirizzoStudio.trim().length > 0;
+    const passoAttuale = PASSI[passo];
+    if (passoAttuale === "grado") return !!gradoStudio;
+    if (passoAttuale === "indirizzo") return indirizzoStudio.trim().length > 0;
     return true;
   };
 
@@ -65,7 +144,7 @@ export default function CreaTesinaPage() {
         body: JSON.stringify({
           gradoStudio,
           indirizzoStudio,
-          materie: materie.split(",").map((m) => m.trim()).filter(Boolean),
+          materie,
           argomento,
           numeroPagine: Number(numeroPagine) || 10,
         }),
@@ -125,7 +204,7 @@ export default function CreaTesinaPage() {
             )}
 
             <button className="bottone-secondario" onClick={() => setTesina(null)}>
-              Genera un'altra tesina
+              🔁 Genera un'altra tesina
             </button>
           </div>
         </section>
@@ -133,80 +212,171 @@ export default function CreaTesinaPage() {
     );
   }
 
+  const passoAttuale = PASSI[passo];
+  const indirizziSuggeriti = INDIRIZZI[gradoStudio] || [];
+
   return (
     <main>
       <section className="pagina-form">
         <div className="container container-stretto">
-          <h1>Crea la mia tesina</h1>
-          <p className="sottotitolo">Rispondi a poche domande, un passo alla volta.</p>
+          <h1>Crea la mia tesina ✨</h1>
+          <p className="sottotitolo">Clicca, clicca, clicca: niente da scrivere (quasi)!</p>
+
+          <div className="barra-progresso">
+            <div
+              className="barra-progresso-riempimento"
+              style={{ width: `${((passo + 1) / PASSI.length) * 100}%` }}
+            />
+          </div>
 
           <div className="form-carta">
-            {PASSI[passo] === "grado" && (
-              <label>
+            {passoAttuale === "grado" && (
+              <div className="passo-wizard">
+                <span className="emoji-titolo">🎯</span>
                 Qual è il tuo grado di studio?
-                <select value={gradoStudio} onChange={(e) => setGradoStudio(e.target.value)}>
-                  <option value="">Seleziona...</option>
+                <div className="griglia-chip">
                   {GRADI.map((g) => (
-                    <option key={g.valore} value={g.valore}>{g.etichetta}</option>
+                    <button
+                      type="button"
+                      key={g.valore}
+                      className={`chip chip-grande ${gradoStudio === g.valore ? "selezionato" : ""}`}
+                      onClick={() => selezionaGrado(g.valore)}
+                    >
+                      <span className="emoji-chip">{g.emoji}</span>
+                      {g.etichetta}
+                    </button>
                   ))}
-                </select>
-              </label>
+                </div>
+              </div>
             )}
 
-            {PASSI[passo] === "indirizzo" && (
-              <label>
+            {passoAttuale === "indirizzo" && (
+              <div className="passo-wizard">
+                <span className="emoji-titolo">🏫</span>
                 Qual è il tuo indirizzo di studio?
-                <input
-                  type="text"
-                  placeholder="Es. Liceo Scientifico, Ragioneria, Ingegneria..."
-                  value={indirizzoStudio}
-                  onChange={(e) => setIndirizzoStudio(e.target.value)}
-                />
-              </label>
+                <div className="griglia-chip">
+                  {indirizziSuggeriti.map((ind) => (
+                    <button
+                      type="button"
+                      key={ind}
+                      className={`chip ${!indirizzoPersonalizzato && indirizzoStudio === ind ? "selezionato" : ""}`}
+                      onClick={() => selezionaIndirizzo(ind)}
+                    >
+                      {ind}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    className={`chip ${indirizzoPersonalizzato ? "selezionato" : ""}`}
+                    onClick={() => {
+                      setIndirizzoPersonalizzato(true);
+                      setIndirizzoStudio("");
+                    }}
+                  >
+                    ✏️ Altro
+                  </button>
+                </div>
+                {indirizzoPersonalizzato && (
+                  <input
+                    type="text"
+                    autoFocus
+                    placeholder="Scrivi il tuo indirizzo di studio"
+                    value={indirizzoStudio}
+                    onChange={(e) => setIndirizzoStudio(e.target.value)}
+                  />
+                )}
+              </div>
             )}
 
-            {PASSI[passo] === "materie" && (
-              <label>
-                Materie da collegare (opzionale)
-                <input
-                  type="text"
-                  placeholder="Es. Storia, Italiano, Scienze (separate da virgola)"
-                  value={materie}
-                  onChange={(e) => setMaterie(e.target.value)}
-                />
-              </label>
+            {passoAttuale === "materie" && (
+              <div className="passo-wizard">
+                <span className="emoji-titolo">📎</span>
+                Materie da collegare (opzionale, scegline quante vuoi)
+                <div className="griglia-chip">
+                  {MATERIE_COMUNI.map((m) => (
+                    <button
+                      type="button"
+                      key={m}
+                      className={`chip ${materie.includes(m) ? "selezionato" : ""}`}
+                      onClick={() => alternaMateria(m)}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
 
-            {PASSI[passo] === "argomento" && (
-              <label>
-                Argomento (lascia vuoto per farti suggerire un'idea dall'AI)
-                <textarea
-                  placeholder="Es. L'energia nucleare, la Rivoluzione francese..."
-                  value={argomento}
-                  onChange={(e) => setArgomento(e.target.value)}
-                />
-              </label>
+            {passoAttuale === "argomento" && (
+              <div className="passo-wizard">
+                <span className="emoji-titolo">💡</span>
+                Su cosa vuoi fare la tesina?
+                <div className="griglia-chip">
+                  {ARGOMENTI_SUGGERITI.map((a) => (
+                    <button
+                      type="button"
+                      key={a.etichetta}
+                      className={`chip ${!argomentoPersonalizzato && argomento === a.etichetta ? "selezionato" : ""}`}
+                      onClick={() => selezionaArgomento(a.etichetta)}
+                    >
+                      {a.emoji} {a.etichetta}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    className={`chip ${!argomentoPersonalizzato && argomento === "" ? "selezionato" : ""}`}
+                    onClick={() => {
+                      setArgomentoPersonalizzato(false);
+                      setArgomento("");
+                    }}
+                  >
+                    🎲 Lascia scegliere all'AI
+                  </button>
+                  <button
+                    type="button"
+                    className={`chip ${argomentoPersonalizzato ? "selezionato" : ""}`}
+                    onClick={() => setArgomentoPersonalizzato(true)}
+                  >
+                    ✏️ Altro
+                  </button>
+                </div>
+                {argomentoPersonalizzato && (
+                  <input
+                    type="text"
+                    autoFocus
+                    placeholder="Scrivi il tuo argomento"
+                    value={argomento}
+                    onChange={(e) => setArgomento(e.target.value)}
+                  />
+                )}
+              </div>
             )}
 
-            {PASSI[passo] === "pagine" && (
-              <label>
-                Lunghezza indicativa (numero di pagine)
-                <input
-                  type="number"
-                  min={1}
-                  max={200}
-                  value={numeroPagine}
-                  onChange={(e) => setNumeroPagine(e.target.value)}
-                />
-              </label>
+            {passoAttuale === "pagine" && (
+              <div className="passo-wizard">
+                <span className="emoji-titolo">📏</span>
+                Quante pagine vuoi che sia?
+                <div className="griglia-chip">
+                  {OPZIONI_PAGINE.map((p) => (
+                    <button
+                      type="button"
+                      key={p}
+                      className={`chip ${Number(numeroPagine) === p ? "selezionato" : ""}`}
+                      onClick={() => setNumeroPagine(p)}
+                    >
+                      {p} pagine
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
 
-            {PASSI[passo] === "riepilogo" && (
+            {passoAttuale === "riepilogo" && (
               <div>
                 <p className="messaggio-info">
                   <strong>Grado:</strong> {GRADI.find((g) => g.valore === gradoStudio)?.etichetta}<br />
                   <strong>Indirizzo:</strong> {indirizzoStudio}<br />
-                  <strong>Materie:</strong> {materie || "a scelta dell'AI"}<br />
+                  <strong>Materie:</strong> {materie.join(", ") || "a scelta dell'AI"}<br />
                   <strong>Argomento:</strong> {argomento || "suggerito dall'AI"}<br />
                   <strong>Pagine:</strong> {numeroPagine}
                 </p>
@@ -222,21 +392,21 @@ export default function CreaTesinaPage() {
                   onClick={() => setPasso((p) => p - 1)}
                   disabled={generazione}
                 >
-                  Indietro
+                  ← Indietro
                 </button>
               )}
-              {PASSI[passo] !== "riepilogo" ? (
+              {passoAttuale !== "riepilogo" ? (
                 <button
                   type="button"
                   className="cta"
                   onClick={() => setPasso((p) => p + 1)}
                   disabled={!puoAndareAvanti()}
                 >
-                  Avanti
+                  Avanti →
                 </button>
               ) : (
                 <button type="button" className="cta" onClick={generaTesina} disabled={generazione}>
-                  {generazione ? "Generazione in corso..." : "Genera la tesina"}
+                  {generazione ? "Generazione in corso... ⏳" : "✨ Genera la tesina"}
                 </button>
               )}
             </div>

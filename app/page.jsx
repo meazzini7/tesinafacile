@@ -7,22 +7,22 @@ export default function HomePage() {
   ];
 
   const percorsi = [
-    { nome: "Scuole medie", desc: "Tesina multidisciplinare semplice, con collegamenti tra materie spiegati passo passo." },
-    { nome: "Superiori", desc: "Tesina d'esame di maturità, con struttura coerente con il tuo indirizzo di studio." },
-    { nome: "Università", desc: "Tesi di laurea con apparato critico, citazioni e bibliografia in stile accademico." },
-    { nome: "Master", desc: "Elaborati avanzati, con supporto su metodologia e revisione approfondita." },
+    { nome: "Scuole medie", emoji: "🎒", desc: "Tesina multidisciplinare semplice, con collegamenti tra materie spiegati passo passo." },
+    { nome: "Superiori", emoji: "📚", desc: "Tesina d'esame di maturità, con struttura coerente con il tuo indirizzo di studio." },
+    { nome: "Università", emoji: "🎓", desc: "Tesi di laurea con apparato critico, citazioni e bibliografia in stile accademico." },
+    { nome: "Master", emoji: "👨‍🎓", desc: "Elaborati avanzati, con supporto su metodologia e revisione approfondita." },
   ];
 
   return (
     <main>
       <section className="hero">
         <div className="container">
-          <h1>La tua tesina, scritta e corretta insieme all'AI.</h1>
+          <h1>La tua tesina, fatta a bottoni. Con l'AI. 🚀</h1>
           <p className="sottotitolo">
-            Nessuna competenza tecnica richiesta. Scegli il tuo grado e indirizzo di studio,
-            e TesinaFacile ti guida passo passo dalla prima idea al documento finito.
+            Zero pagine bianche, zero stress. Clicchi qualche bottone e TesinaFacile ti genera
+            struttura, capitoli e bibliografia in pochi minuti.
           </p>
-          <a className="cta" href="/crea">Inizia gratis</a>
+          <a className="cta" href="/crea">Inizia gratis ✨</a>
 
           <div className="indice-firma">
             {voci.map((v) => (
@@ -42,7 +42,7 @@ export default function HomePage() {
           <div className="griglia-percorsi">
             {percorsi.map((p) => (
               <div className="card-percorso" key={p.nome}>
-                <h3>{p.nome}</h3>
+                <h3>{p.emoji} {p.nome}</h3>
                 <p>{p.desc}</p>
               </div>
             ))}
