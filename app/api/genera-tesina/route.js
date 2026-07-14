@@ -3,7 +3,8 @@
 // La GEMINI_API_KEY non lascia mai il server.
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { verificaUtente } from "@/lib/firebaseAdmin";
+import { FieldValue } from "firebase-admin/firestore";
+import { verificaUtente, getAdminDb } from "@/lib/firebaseAdmin";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -36,9 +37,22 @@ export async function POST(request) {
     const testoJson = risultato.response.text();
     const tesina = JSON.parse(testoJson);
 
-    // TODO: salvare `tesina` su Firestore/Storage associata a utente.uid
+    const riferimento = await getAdminDb()
+      .collection("utenti")
+      .doc(utente.uid)
+      .collection("tesine")
+      .add({
+        tipo: "generata",
+        gradoStudio,
+        indirizzoStudio,
+        materie: materie || [],
+        argomento: argomento || "",
+        numeroPagine: numeroPagine || 10,
+        tesina,
+        creatoIl: FieldValue.serverTimestamp(),
+      });
 
-    return Response.json({ ok: true, tesina });
+    return Response.json({ ok: true, id: riferimento.id, tesina });
   } catch (err) {
     console.error("Errore generazione Gemini:", err);
     return Response.json({ errore: "Generazione non riuscita, riprova." }, { status: 500 });

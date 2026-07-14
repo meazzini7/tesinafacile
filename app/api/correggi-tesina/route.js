@@ -3,7 +3,8 @@
 // correzioni grammaticali, di struttura e suggerimenti, calibrati sul grado/indirizzo di studio.
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { verificaUtente } from "@/lib/firebaseAdmin";
+import { FieldValue } from "firebase-admin/firestore";
+import { verificaUtente, getAdminDb } from "@/lib/firebaseAdmin";
 import mammoth from "mammoth";
 import pdfParse from "pdf-parse";
 
@@ -59,9 +60,20 @@ TESTO DA CORREGGERE:
     const risultato = await model.generateContent(prompt);
     const correzione = JSON.parse(risultato.response.text());
 
-    // TODO: salvare il risultato su Firestore/Storage collegato a utente.uid
+    const riferimento = await getAdminDb()
+      .collection("utenti")
+      .doc(utente.uid)
+      .collection("tesine")
+      .add({
+        tipo: "corretta",
+        nomeFile: file.name || "documento",
+        gradoStudio,
+        indirizzoStudio,
+        correzione,
+        creatoIl: FieldValue.serverTimestamp(),
+      });
 
-    return Response.json({ ok: true, correzione });
+    return Response.json({ ok: true, id: riferimento.id, correzione });
   } catch (err) {
     console.error("Errore correzione Gemini:", err);
     return Response.json({ errore: "Correzione non riuscita, riprova." }, { status: 500 });

@@ -14,6 +14,49 @@
 
 * { box-sizing: border-box; }
 
+.navbar {
+  border-bottom: 1px solid rgba(241, 237, 227, 0.15);
+}
+
+.navbar-interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  gap: 24px;
+}
+
+.navbar-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--carta);
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 0.95rem;
+}
+
+.navbar-links a { text-decoration: none; color: var(--carta-tenue); }
+.navbar-links a:hover { color: var(--carta); }
+
+.navbar-logout {
+  background: none;
+  border: 1px solid rgba(241, 237, 227, 0.3);
+  color: var(--carta-tenue);
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: var(--font-corpo);
+  font-size: 0.9rem;
+}
+
+.navbar-logout:hover { color: var(--carta); border-color: var(--carta); }
+
 body {
   margin: 0;
   background: var(--verde-inchiostro);
@@ -102,6 +145,124 @@ a { color: inherit; }
 
 .card-percorso h3 { color: var(--oro-matita); font-size: 1.15rem; }
 .card-percorso p { color: var(--carta-tenue); margin-top: 10px; font-size: 0.95rem; }
+
+/* --- Pagine con form (login, wizard, correzione) --- */
+.pagina-form { padding: 56px 0 96px; }
+
+.container-stretto { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+
+.pagina-form h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--carta); }
+
+.sottotitolo { color: var(--carta-tenue); margin-top: 12px; }
+
+.form-carta {
+  margin-top: 32px;
+  background: var(--verde-inchiostro-scuro);
+  border: 1px solid rgba(241, 237, 227, 0.12);
+  border-radius: 10px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-carta label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--carta-tenue);
+  font-size: 0.95rem;
+}
+
+.form-carta input,
+.form-carta select,
+.form-carta textarea {
+  background: var(--verde-inchiostro);
+  border: 1px solid rgba(241, 237, 227, 0.25);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: var(--carta);
+  font-family: var(--font-corpo);
+  font-size: 1rem;
+}
+
+.form-carta textarea { resize: vertical; min-height: 90px; }
+
+.cta:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.bottone-secondario {
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(241, 237, 227, 0.3);
+  color: var(--carta);
+  border-radius: 6px;
+  font-family: var(--font-corpo);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.bottone-secondario:hover { border-color: var(--oro-matita); color: var(--oro-matita); }
+
+.cambia-modalita {
+  margin-top: 20px;
+  color: var(--carta-tenue);
+  font-size: 0.9rem;
+}
+
+.cambia-modalita button {
+  background: none;
+  border: none;
+  color: var(--oro-matita);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.messaggio-errore {
+  color: #e88a6e;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.messaggio-info {
+  color: var(--carta-tenue);
+  font-size: 0.9rem;
+}
+
+.wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.wizard-nav .cta { margin-top: 0; }
+
+.titolo-sezione {
+  margin-top: 40px;
+  color: var(--oro-matita);
+  font-size: 1.3rem;
+}
+
+.lista-risultato {
+  margin-top: 12px;
+  color: var(--carta-tenue);
+  line-height: 1.7;
+  padding-left: 20px;
+}
+
+.capitolo-generato { margin-top: 16px; }
+.capitolo-generato p { white-space: pre-wrap; }
+
+.lista-dashboard {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
 .blocco-annuncio {
   margin: 48px 0;
