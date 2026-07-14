@@ -17,12 +17,14 @@ export default function HomePage() {
     <main>
       <section className="hero">
         <div className="container">
-          <h1>La tua tesina, fatta a bottoni. Con l'AI. 🚀</h1>
+          <span className="etichetta-hero">🎓 Per scuole medie, superiori, università e master</span>
+          <h1>Tesine e tesi scritte (e corrette) dall'AI, un bottone alla volta. 🚀</h1>
           <p className="sottotitolo">
-            Zero pagine bianche, zero stress. Clicchi qualche bottone e TesinaFacile ti genera
-            struttura, capitoli e bibliografia in pochi minuti.
+            Zero pagine bianche, zero stress. Clicchi qualche bottone su grado di studio,
+            indirizzo e argomento, e TesinaFacile genera struttura, capitoli e bibliografia
+            della tua tesina o tesi in pochi minuti.
           </p>
-          <a className="cta" href="/crea">Inizia gratis ✨</a>
+          <a className="cta" href="/crea">Crea la mia tesina gratis ✨</a>
 
           <div className="indice-firma">
             {voci.map((v) => (
@@ -38,7 +40,7 @@ export default function HomePage() {
 
       <section className="percorsi">
         <div className="container">
-          <h2>Un percorso per ogni grado di studio</h2>
+          <h2>Tesine e tesi per ogni grado di studio</h2>
           <div className="griglia-percorsi">
             {percorsi.map((p) => (
               <div className="card-percorso" key={p.nome}>
