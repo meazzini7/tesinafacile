@@ -15,6 +15,7 @@ export default function NavBar() {
         <nav className="navbar-links">
           <Link href="/crea">Crea la mia tesina</Link>
           <Link href="/correggi">Correggi la mia tesina</Link>
+          <Link href="/guide">Guide</Link>
           {!caricamento && utente && <Link href="/dashboard">Dashboard</Link>}
           {!caricamento && !utente && <Link href="/login">Accedi</Link>}
           {!caricamento && utente && (

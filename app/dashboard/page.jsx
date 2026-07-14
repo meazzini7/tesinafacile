@@ -72,7 +72,7 @@ export default function DashboardPage() {
 
           <div className="lista-dashboard">
             {tesine.map((voce) => (
-              <article className="card-percorso" key={voce.id}>
+              <Link className="card-percorso" href={`/dashboard/${voce.id}`} key={voce.id}>
                 <h3>
                   {voce.tipo === "generata"
                     ? voce.tesina?.titolo || "Tesina generata"
@@ -91,7 +91,7 @@ export default function DashboardPage() {
                     })}
                   </p>
                 )}
-              </article>
+              </Link>
             ))}
           </div>
         </div>

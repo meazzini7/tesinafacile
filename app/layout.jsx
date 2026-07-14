@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import { AuthProvider } from "@/lib/AuthContext";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "TesinaFacile — Scrivi e correggi la tua tesina con l'AI",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <NavBar />
           {children}
+          <Footer />
         </AuthProvider>
       </body>
     </html>

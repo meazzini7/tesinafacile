@@ -143,6 +143,8 @@ a { color: inherit; }
   padding: 24px;
 }
 
+a.card-percorso { display: block; text-decoration: none; color: inherit; }
+
 .card-percorso h3 { color: var(--oro-matita); font-size: 1.15rem; }
 .card-percorso p { color: var(--carta-tenue); margin-top: 10px; font-size: 0.95rem; }
 
@@ -256,6 +258,31 @@ a { color: inherit; }
 
 .capitolo-generato { margin-top: 16px; }
 .capitolo-generato p { white-space: pre-wrap; }
+
+.footer {
+  border-top: 1px solid rgba(241, 237, 227, 0.15);
+  margin-top: 64px;
+}
+
+.footer-interno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px;
+  color: var(--carta-tenue);
+  font-size: 0.9rem;
+}
+
+.footer-links { display: flex; gap: 18px; }
+.footer-links a { color: var(--carta-tenue); text-decoration: none; }
+.footer-links a:hover { color: var(--carta); }
+
+.contenuto-legale p,
+.contenuto-legale ul { color: var(--carta-tenue); }
+.contenuto-legale a { color: var(--oro-matita); }
+.contenuto-legale h2:first-of-type { margin-top: 32px; }
 
 .lista-dashboard {
   margin-top: 24px;
