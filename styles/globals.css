@@ -103,6 +103,18 @@ a { color: inherit; }
     radial-gradient(circle at 85% 0%, rgba(108, 76, 241, 0.16), transparent 40%);
 }
 
+.etichetta-hero {
+  display: inline-block;
+  background: #fff;
+  border: 2px solid var(--bordo);
+  color: var(--viola);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
 .hero h1 {
   font-size: clamp(2.4rem, 5.5vw, 3.8rem);
   max-width: 15ch;

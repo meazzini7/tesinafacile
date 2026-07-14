@@ -25,7 +25,10 @@ export default function DashboardPage() {
           setTesine(istantanea.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
         }
       } catch (err) {
-        if (!annullato) setErrore("Non riesco a caricare la cronologia.");
+        console.error("Errore caricamento tesine:", err);
+        if (!annullato) {
+          setErrore(`Non riesco a caricare la cronologia (${err.code || err.message}).`);
+        }
       } finally {
         if (!annullato) setCaricamentoTesine(false);
       }
@@ -61,9 +64,10 @@ export default function DashboardPage() {
           <p className="sottotitolo">Cronologia delle tesine generate e corrette.</p>
 
           {caricamentoTesine && <p className="messaggio-info">Caricamento...</p>}
-          {errore && <p className="messaggio-errore">{errore}</p>}
 
-          {!caricamentoTesine && tesine.length === 0 && (
+          {!caricamentoTesine && errore && <p className="messaggio-errore">{errore}</p>}
+
+          {!caricamentoTesine && !errore && tesine.length === 0 && (
             <p className="messaggio-info">
               Non hai ancora nessuna tesina. <Link href="/crea">Creane una</Link> o{" "}
               <Link href="/correggi">correggine una esistente</Link>.
