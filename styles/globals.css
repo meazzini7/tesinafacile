@@ -1,110 +1,145 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Public+Sans:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap");
 
 :root {
-  --verde-inchiostro: #0f3b34;
-  --verde-inchiostro-scuro: #0a2822;
-  --oro-matita: #e8b84b;
-  --carta: #f1ede3;
-  --carta-tenue: #d9d2bf;
-  --testo-scuro: #16211c;
+  --viola: #6c4cf1;
+  --viola-scuro: #4b2fd1;
+  --corallo: #ff5c7a;
+  --giallo: #ffc93c;
+  --menta: #17b891;
+  --sfondo: #faf9ff;
+  --carta-sfondo: #ffffff;
+  --bordo: #ece9f7;
+  --testo: #201a35;
+  --testo-tenue: #6b6580;
 
-  --font-display: "Fraunces", serif;
-  --font-corpo: "Public Sans", sans-serif;
+  /* alias per compatibilità coi nomi usati nei componenti esistenti */
+  --carta: var(--testo);
+  --carta-tenue: var(--testo-tenue);
+  --oro-matita: var(--corallo);
+  --verde-inchiostro: var(--sfondo);
+  --verde-inchiostro-scuro: var(--carta-sfondo);
+
+  --font-display: "Baloo 2", "Poppins", sans-serif;
+  --font-corpo: "Poppins", sans-serif;
 }
 
 * { box-sizing: border-box; }
 
+body {
+  margin: 0;
+  background: var(--sfondo);
+  color: var(--testo);
+  font-family: var(--font-corpo);
+  line-height: 1.55;
+}
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; }
+
+a { color: inherit; }
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* --- Navbar --- */
 .navbar {
-  border-bottom: 1px solid rgba(241, 237, 227, 0.15);
+  background: var(--carta-sfondo);
+  border-bottom: 2px solid var(--bordo);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .navbar-interno {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
+  padding: 16px 24px;
   gap: 24px;
 }
 
 .navbar-logo {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--carta);
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--viola);
   text-decoration: none;
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 8px;
   font-size: 0.95rem;
 }
 
-.navbar-links a { text-decoration: none; color: var(--carta-tenue); }
-.navbar-links a:hover { color: var(--carta); }
+.navbar-links a {
+  text-decoration: none;
+  color: var(--testo-tenue);
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.navbar-links a:hover { color: var(--viola); background: #f2eeff; }
 
 .navbar-logout {
   background: none;
-  border: 1px solid rgba(241, 237, 227, 0.3);
-  color: var(--carta-tenue);
-  border-radius: 6px;
-  padding: 6px 14px;
+  border: 2px solid var(--bordo);
+  color: var(--testo-tenue);
+  border-radius: 999px;
+  padding: 7px 16px;
   cursor: pointer;
   font-family: var(--font-corpo);
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
-.navbar-logout:hover { color: var(--carta); border-color: var(--carta); }
+.navbar-logout:hover { color: var(--corallo); border-color: var(--corallo); }
 
-body {
-  margin: 0;
-  background: var(--verde-inchiostro);
-  color: var(--carta);
-  font-family: var(--font-corpo);
-  line-height: 1.55;
-}
-
-h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; }
-
-a { color: inherit; }
-
-.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-
-/* --- Hero: l'indice della tesina come elemento firma --- */
+/* --- Hero --- */
 .hero {
-  padding: 96px 0 64px;
-  border-bottom: 1px solid rgba(241, 237, 227, 0.15);
+  padding: 88px 0 64px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 92, 122, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 0%, rgba(108, 76, 241, 0.16), transparent 40%);
 }
 
 .hero h1 {
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  max-width: 14ch;
-  color: var(--carta);
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  max-width: 15ch;
+  color: var(--testo);
+  line-height: 1.1;
 }
 
 .hero .sottotitolo {
   margin-top: 20px;
   max-width: 46ch;
-  color: var(--carta-tenue);
-  font-size: 1.1rem;
+  color: var(--testo-tenue);
+  font-size: 1.15rem;
 }
 
 .cta {
   display: inline-block;
   margin-top: 32px;
-  padding: 14px 28px;
-  background: var(--oro-matita);
-  color: var(--verde-inchiostro-scuro);
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--viola), var(--corallo));
+  color: #fff;
   font-weight: 700;
-  border-radius: 6px;
+  font-family: var(--font-display);
+  border: none;
+  border-radius: 999px;
   text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(108, 76, 241, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+
+.cta:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 26px rgba(108, 76, 241, 0.4); }
+.cta:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 /* Finto "indice" di tesina: titolo + puntini + numero, come firma visiva */
 .indice-firma {
   margin-top: 56px;
-  border-top: 1px dashed rgba(241, 237, 227, 0.35);
+  border-top: 2px dashed var(--bordo);
   padding-top: 24px;
 }
 
@@ -119,15 +154,15 @@ a { color: inherit; }
 
 .voce-indice .puntini {
   flex: 1;
-  border-bottom: 1px dotted rgba(241, 237, 227, 0.4);
+  border-bottom: 2px dotted var(--bordo);
   height: 0;
   transform: translateY(-6px);
 }
 
-.voce-indice .numero { color: var(--oro-matita); font-weight: 700; }
+.voce-indice .numero { color: var(--corallo); font-weight: 700; }
 
 /* --- Sezione percorsi per grado di studio --- */
-.percorsi { padding: 72px 0; }
+.percorsi { padding: 64px 0; }
 
 .griglia-percorsi {
   display: grid;
@@ -137,102 +172,186 @@ a { color: inherit; }
 }
 
 .card-percorso {
-  background: var(--verde-inchiostro-scuro);
-  border: 1px solid rgba(241, 237, 227, 0.12);
-  border-radius: 10px;
+  background: var(--carta-sfondo);
+  border: 2px solid var(--bordo);
+  border-radius: 20px;
   padding: 24px;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 a.card-percorso { display: block; text-decoration: none; color: inherit; }
+a.card-percorso:hover {
+  transform: translateY(-3px);
+  border-color: var(--viola);
+  box-shadow: 0 10px 24px rgba(108, 76, 241, 0.12);
+}
 
-.card-percorso h3 { color: var(--oro-matita); font-size: 1.15rem; }
-.card-percorso p { color: var(--carta-tenue); margin-top: 10px; font-size: 0.95rem; }
+.card-percorso h3 { color: var(--viola); font-size: 1.2rem; }
+.card-percorso p { color: var(--testo-tenue); margin-top: 10px; font-size: 0.95rem; }
 
 /* --- Pagine con form (login, wizard, correzione) --- */
-.pagina-form { padding: 56px 0 96px; }
+.pagina-form { padding: 48px 0 96px; }
 
 .container-stretto { max-width: 640px; margin: 0 auto; padding: 0 24px; }
 
-.pagina-form h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--carta); }
+.pagina-form h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); color: var(--testo); }
 
-.sottotitolo { color: var(--carta-tenue); margin-top: 12px; }
+.sottotitolo { color: var(--testo-tenue); margin-top: 12px; }
 
 .form-carta {
   margin-top: 32px;
-  background: var(--verde-inchiostro-scuro);
-  border: 1px solid rgba(241, 237, 227, 0.12);
-  border-radius: 10px;
+  background: var(--carta-sfondo);
+  border: 2px solid var(--bordo);
+  border-radius: 24px;
   padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
 }
 
 .form-carta label {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  color: var(--carta-tenue);
+  gap: 8px;
+  color: var(--testo-tenue);
+  font-weight: 600;
   font-size: 0.95rem;
 }
 
 .form-carta input,
 .form-carta select,
 .form-carta textarea {
-  background: var(--verde-inchiostro);
-  border: 1px solid rgba(241, 237, 227, 0.25);
-  border-radius: 6px;
-  padding: 10px 12px;
-  color: var(--carta);
+  background: var(--sfondo);
+  border: 2px solid var(--bordo);
+  border-radius: 14px;
+  padding: 12px 14px;
+  color: var(--testo);
   font-family: var(--font-corpo);
   font-size: 1rem;
 }
 
-.form-carta textarea { resize: vertical; min-height: 90px; }
+.form-carta input:focus,
+.form-carta select:focus,
+.form-carta textarea:focus {
+  outline: none;
+  border-color: var(--viola);
+}
 
-.cta:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-carta textarea { resize: vertical; min-height: 90px; }
 
 .bottone-secondario {
   margin-top: 14px;
   width: 100%;
   padding: 12px;
   background: transparent;
-  border: 1px solid rgba(241, 237, 227, 0.3);
-  color: var(--carta);
-  border-radius: 6px;
+  border: 2px solid var(--bordo);
+  color: var(--testo);
+  border-radius: 999px;
   font-family: var(--font-corpo);
+  font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
-.bottone-secondario:hover { border-color: var(--oro-matita); color: var(--oro-matita); }
+.bottone-secondario:hover { border-color: var(--viola); color: var(--viola); }
 
 .cambia-modalita {
   margin-top: 20px;
-  color: var(--carta-tenue);
+  color: var(--testo-tenue);
   font-size: 0.9rem;
 }
 
 .cambia-modalita button {
   background: none;
   border: none;
-  color: var(--oro-matita);
+  color: var(--corallo);
   cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 700;
   padding: 0;
   text-decoration: underline;
 }
 
 .messaggio-errore {
-  color: #e88a6e;
+  color: #e0295c;
   font-size: 0.9rem;
   margin: 0;
+  font-weight: 600;
 }
 
 .messaggio-info {
-  color: var(--carta-tenue);
+  color: var(--testo-tenue);
   font-size: 0.9rem;
 }
+
+/* --- Selettori a bottone/chip (wizard) --- */
+.passo-wizard {
+  color: var(--testo-tenue);
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.passo-wizard .emoji-titolo { font-size: 1.6rem; }
+
+.barra-progresso {
+  margin-top: 28px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bordo);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.barra-progresso-riempimento {
+  height: 100%;
+  background: linear-gradient(90deg, var(--viola), var(--corallo));
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.griglia-chip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.chip {
+  border: 2px solid var(--bordo);
+  background: var(--sfondo);
+  color: var(--testo);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-family: var(--font-corpo);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.chip:hover { border-color: var(--viola); transform: translateY(-1px); }
+
+.chip.selezionato {
+  background: linear-gradient(135deg, var(--viola), var(--corallo));
+  border-color: transparent;
+  color: #fff;
+}
+
+.chip-grande {
+  flex-direction: column;
+  padding: 20px 16px;
+  min-width: 130px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.chip-grande .emoji-chip { font-size: 1.8rem; display: block; margin-bottom: 6px; }
 
 .wizard-nav {
   display: flex;
@@ -245,22 +364,22 @@ a.card-percorso { display: block; text-decoration: none; color: inherit; }
 
 .titolo-sezione {
   margin-top: 40px;
-  color: var(--oro-matita);
+  color: var(--viola);
   font-size: 1.3rem;
 }
 
 .lista-risultato {
   margin-top: 12px;
-  color: var(--carta-tenue);
+  color: var(--testo-tenue);
   line-height: 1.7;
   padding-left: 20px;
 }
 
 .capitolo-generato { margin-top: 16px; }
-.capitolo-generato p { white-space: pre-wrap; }
+.capitolo-generato p { white-space: pre-wrap; color: var(--testo-tenue); }
 
 .footer {
-  border-top: 1px solid rgba(241, 237, 227, 0.15);
+  border-top: 2px solid var(--bordo);
   margin-top: 64px;
 }
 
@@ -271,17 +390,17 @@ a.card-percorso { display: block; text-decoration: none; color: inherit; }
   justify-content: space-between;
   gap: 16px;
   padding: 24px;
-  color: var(--carta-tenue);
+  color: var(--testo-tenue);
   font-size: 0.9rem;
 }
 
 .footer-links { display: flex; gap: 18px; }
-.footer-links a { color: var(--carta-tenue); text-decoration: none; }
-.footer-links a:hover { color: var(--carta); }
+.footer-links a { color: var(--testo-tenue); text-decoration: none; font-weight: 600; }
+.footer-links a:hover { color: var(--viola); }
 
 .contenuto-legale p,
-.contenuto-legale ul { color: var(--carta-tenue); }
-.contenuto-legale a { color: var(--oro-matita); }
+.contenuto-legale ul { color: var(--testo-tenue); }
+.contenuto-legale a { color: var(--viola); font-weight: 600; }
 .contenuto-legale h2:first-of-type { margin-top: 32px; }
 
 .lista-dashboard {
@@ -295,8 +414,8 @@ a.card-percorso { display: block; text-decoration: none; color: inherit; }
   margin: 48px 0;
   padding: 12px;
   text-align: center;
-  color: var(--carta-tenue);
+  color: var(--testo-tenue);
   font-size: 0.8rem;
-  border: 1px dashed rgba(241, 237, 227, 0.25);
-  border-radius: 8px;
+  border: 2px dashed var(--bordo);
+  border-radius: 14px;
 }
