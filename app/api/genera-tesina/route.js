@@ -35,11 +35,9 @@ export async function POST(request) {
   const prompt = costruisciPrompt({ gradoStudio, indirizzoStudio, materie, argomento, numeroPagine });
 
   try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-3.5-flash",
-      generationConfig: { responseMimeType: "application/json" },
+    const risultato = await generaContenutoConRetry(genAI, prompt, {
+      responseMimeType: "application/json",
     });
-    const risultato = await generaContenutoConRetry(model, prompt);
     const testoJson = risultato.response.text();
     const tesina = JSON.parse(testoJson);
 
