@@ -21,7 +21,7 @@ Se hai già condiviso chiavi API in chiaro (es. in una chat con un assistente AI
 | Auth | **Firebase Authentication** | Login email/password + Google, gratuito su piano Spark fino a volumi alti |
 | Database | **Firebase Firestore** | Metadati utenti, tesine, crediti, cronologia |
 | Storage file | **Firebase Storage** | PDF/DOCX caricati dagli studenti e generati dall'AI |
-| AI | **Google Gemini API** (`gemini-2.5-flash`) | Generazione struttura/testo tesina, correzione, feedback |
+| AI | **Google Gemini API** (`gemini-3.5-flash`) | Generazione struttura/testo tesina, correzione, feedback |
 | Estrazione testo da PDF/DOCX | `pdf-parse`, `mammoth` (server-side) | Per leggere i file caricati prima di darli a Gemini |
 | Monetizzazione | **Google AdSense** | Banner responsive + eventuale "Ad-free" a pagamento come upsell futuro |
 | Repo | `github.com/<tuo-utente>/tesinafacile` | Collegato a Vercel per CI/CD automatico |
