@@ -43,11 +43,6 @@ export async function POST(request) {
       return Response.json({ errore: "Non riesco a leggere testo utile da questo file." }, { status: 422 });
     }
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-3.5-flash",
-      generationConfig: { responseMimeType: "application/json" },
-    });
-
     const prompt = `Sei un correttore di tesine/tesi per studenti italiani.
 Grado di studio: ${gradoStudio}. Indirizzo: ${indirizzoStudio || "non specificato"}.
 Correggi il seguente testo: segnala errori grammaticali/ortografici, problemi di struttura e coerenza,
@@ -63,7 +58,9 @@ Rispondi SOLO in JSON:
 TESTO DA CORREGGERE:
 """${testo.slice(0, 30000)}"""`;
 
-    const risultato = await generaContenutoConRetry(model, prompt);
+    const risultato = await generaContenutoConRetry(genAI, prompt, {
+      responseMimeType: "application/json",
+    });
     const correzione = JSON.parse(risultato.response.text());
 
     const riferimento = await getAdminDb()
