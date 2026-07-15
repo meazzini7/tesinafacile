@@ -60,7 +60,10 @@ export async function POST(request) {
     return Response.json({ ok: true, id: riferimento.id, tesina });
   } catch (err) {
     console.error("Errore generazione Gemini:", err);
-    return Response.json({ errore: "Generazione non riuscita, riprova." }, { status: 500 });
+    return Response.json(
+      { errore: `Generazione non riuscita: ${err.message}` },
+      { status: 500 }
+    );
   }
 }
 
