@@ -122,5 +122,5 @@ function traduciErrore(codice) {
     "auth/weak-password": "La password deve avere almeno 6 caratteri.",
     "auth/popup-closed-by-user": "Accesso con Google annullato.",
   };
-  return messaggi[codice] || "Si è verificato un errore, riprova.";
+  return messaggi[codice] || `Si è verificato un errore, riprova. (${codice || "codice sconosciuto"})`;
 }
