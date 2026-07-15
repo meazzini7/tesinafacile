@@ -81,7 +81,10 @@ TESTO DA CORREGGERE:
     return Response.json({ ok: true, id: riferimento.id, correzione });
   } catch (err) {
     console.error("Errore correzione Gemini:", err);
-    return Response.json({ errore: "Correzione non riuscita, riprova." }, { status: 500 });
+    return Response.json(
+      { errore: `Correzione non riuscita: ${err.message}` },
+      { status: 500 }
+    );
   }
 }
 
