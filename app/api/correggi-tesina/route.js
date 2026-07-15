@@ -5,6 +5,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FieldValue } from "firebase-admin/firestore";
 import { verificaUtente, getAdminDb } from "@/lib/firebaseAdmin";
+import { generaContenutoConRetry } from "@/lib/gemini";
 import mammoth from "mammoth";
 import pdfParse from "pdf-parse";
 
@@ -62,7 +63,7 @@ Rispondi SOLO in JSON:
 TESTO DA CORREGGERE:
 """${testo.slice(0, 30000)}"""`;
 
-    const risultato = await model.generateContent(prompt);
+    const risultato = await generaContenutoConRetry(model, prompt);
     const correzione = JSON.parse(risultato.response.text());
 
     const riferimento = await getAdminDb()

@@ -5,6 +5,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FieldValue } from "firebase-admin/firestore";
 import { verificaUtente, getAdminDb } from "@/lib/firebaseAdmin";
+import { generaContenutoConRetry } from "@/lib/gemini";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -38,7 +39,7 @@ export async function POST(request) {
       model: "gemini-3.5-flash",
       generationConfig: { responseMimeType: "application/json" },
     });
-    const risultato = await model.generateContent(prompt);
+    const risultato = await generaContenutoConRetry(model, prompt);
     const testoJson = risultato.response.text();
     const tesina = JSON.parse(testoJson);
 
